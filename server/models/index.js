@@ -1,10 +1,19 @@
 var db = require('../db');
+var headers = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept',
+  'access-control-max-age': 10, // Seconds.
+  'Content-Type': 'application/json'
+};
+
 
 module.exports = {
   messages: {
     get: function (req, res) {
       var data;
       db.dbcon.query('SELECT * from messages', function(err, rows, fields) {
+        res.writeHead(200, headers);
         res.end(JSON.stringify(rows));
       });  
     }, // a function which produces all the messages
@@ -14,8 +23,14 @@ module.exports = {
           throw err;
         }
       });      
+      res.writeHead(200, headers);
       res.end();
-    } // a function which can be used to insert a message into the database
+    }, // a function which can be used to insert a message into the database
+    options: function (req,res){
+      console.log('module options');
+      res.writeHead(200, headers);
+      res.end();
+    }
   },
 
   users: {
@@ -23,6 +38,7 @@ module.exports = {
     get: function (req, res) {
       var data;
       db.dbcon.query('SELECT * from users', function(err, rows, fields) {
+        res.writeHead(200, headers);
         res.end(JSON.stringify(rows));
       }); 
     },
@@ -32,6 +48,7 @@ module.exports = {
           throw err;
         }
       });      
+      res.writeHead(200, headers);
       res.end();
     }
   }

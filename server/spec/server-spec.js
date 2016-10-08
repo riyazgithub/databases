@@ -75,9 +75,9 @@ describe('Persistent Node Chat Server', function() {
       method: 'POST',
       uri: 'http://127.0.0.1:3000/classes/messages',
       json: {
-        username: 'Valjean',
+        username: 'Will',
         message: 'Men like you can never change!',
-        roomname: 'main'
+        roomname: 'lobby'
       }, function(error, response, body) {
       }
     });
