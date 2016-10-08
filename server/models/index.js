@@ -18,15 +18,19 @@ module.exports = {
       });  
     }, // a function which produces all the messages
     post: function (req, res) {
-      db.dbcon.query('INSERT INTO messages SET ?', req.body, function(err, res) {
-        if (err) {
-          throw err;
-        }
-      });      
+      console.log('INSERT INTO messages SET ?', req.body);
+      req.on('data' , function(data) {
+        console.log('Data ', data, data.toString());
+        db.dbcon.query('INSERT INTO messages SET ?', JSON.parse(data.toString()), function(err, res) {
+          if (err) {
+            throw err;
+          }
+        });      
+      });
       res.writeHead(200, headers);
       res.end();
     }, // a function which can be used to insert a message into the database
-    options: function (req,res){
+    options: function (req, res) {
       console.log('module options');
       res.writeHead(200, headers);
       res.end();
