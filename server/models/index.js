@@ -19,13 +19,14 @@ module.exports = {
     }, // a function which produces all the messages
     post: function (req, res) {
       console.log('INSERT INTO messages SET ?', req.body);
-      req.on('data' , function(data) {
+      req.on('data', function(data) {
         console.log('Data ', data, data.toString());
-        db.dbcon.query('INSERT INTO messages SET ?', JSON.parse(data.toString()), function(err, res) {
-          if (err) {
-            throw err;
-          }
-        });      
+        db.Message.create(JSON.parse(data.toString()));
+        // db.dbcon.query('INSERT INTO messages SET ?', JSON.parse(data.toString()), function(err, res) {
+        //   if (err) {
+        //     throw err;
+        //   }
+        // });      
       });
       res.writeHead(200, headers);
       res.end();

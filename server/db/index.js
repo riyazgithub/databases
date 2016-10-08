@@ -3,26 +3,30 @@ var mysql = require('mysql');
 // Create a database connection and export it from this file.
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
-// var Sequelize = require('sequelize');
-// var db = new Sequelize('chat', 'root', 'hackreactor');
-// var User = db.define('users', {
-//   username: Sequelize.STRING,
-//   id: {type: Sequelize.INTEGER, primaryKey: true}
-// }, {
-//   timestamps: false
-// }
-// );
-// var Room = db.define('rooms', {
-//   roomname: Sequelize.STRING,
-//   id: {type: Sequelize.INTEGER, primaryKey: true}
-// });
+var Sequelize = require('sequelize');
+var db = new Sequelize('chat', 'root', 'hackreactor');
+exports.User = db.define('users', {
+  username: Sequelize.STRING,
+  id: {type: Sequelize.INTEGER, primaryKey: true}
+}, {
+  timestamps: false
+}
+);
+exports.Room = db.define('rooms', {
+  roomname: Sequelize.STRING,
+  id: {type: Sequelize.INTEGER, primaryKey: true}
+}, {
+  timestamps: false
+});
 
-// var Message = db.define('messages', {
-//   id: {type: Sequelize.INTEGER, primaryKey: true},
-//   uid: Sequelize.INTEGER,
-//   message: Sequelize.STRING,
-//   rid: Sequelize.INTEGER,
-// });
+exports.Message = db.define('messages', {
+  id: {type: Sequelize.INTEGER, primaryKey: true},
+  username: Sequelize.STRING,
+  message: Sequelize.STRING,
+  roomname: Sequelize.STRING,
+}, {
+  timestamps: false
+});
 
 // User.sync()
 //   .then(function() {
